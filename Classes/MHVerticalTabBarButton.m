@@ -97,5 +97,4 @@
     [self addSubview:_titleLabel];
 }
 
-
 @end

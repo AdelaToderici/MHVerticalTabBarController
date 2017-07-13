@@ -28,26 +28,28 @@
     _tabBar = [[MHVerticalTabBar alloc] init];
     _tabBar.tabBarDelegate = self;
     _tabBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.tabBarWidth = 110.0;
+    self.tabBarWidth = 80.0;
     [self.view addSubview:_tabBar];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.tabBarWidth = _tabBarWidth;
-//    _tabBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//    [self.view addSubview:_tabBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    [UIView setAnimationsEnabled:NO];
     [self.selectedViewController viewWillAppear:animated];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
+    [UIView setAnimationsEnabled:YES];
     [self.selectedViewController viewDidAppear:animated];
+    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeLeft) forKey:@"orientation"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -114,13 +116,13 @@
     _tabBarWidth = tabBarWidth;
     
     _tabBar.frame =
-    CGRectMake(0,
+    CGRectMake(CGRectGetHeight(self.view.bounds) - _tabBarWidth,
                0,
                _tabBarWidth,
                CGRectGetHeight(self.view.bounds));
     
     self.selectedViewController.view.frame =
-    CGRectMake(_tabBarWidth,
+    CGRectMake(0,
                0,
                CGRectGetWidth(self.view.bounds) - _tabBarWidth,
                CGRectGetHeight(self.view.bounds));
@@ -154,7 +156,7 @@
 
 - (void)swapViewController:(UIViewController *)viewController {
     viewController.view.frame =
-    CGRectMake(self.tabBarWidth,
+    CGRectMake(0,
                0,
                CGRectGetWidth(self.view.bounds) - self.tabBarWidth,
                CGRectGetHeight(self.view.bounds));
