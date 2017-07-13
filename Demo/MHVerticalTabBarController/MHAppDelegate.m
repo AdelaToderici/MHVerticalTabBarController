@@ -41,33 +41,6 @@
     self.tabBarController = [[MHVerticalTabBarController alloc] init];
     self.tabBarController.viewControllers = @[vc1, vc2, vc3, vc4];
     
-    // turn off selection animation
-//    self.tabBarController.tabBar.animationDuration = 0.0;
-
-    // set the width
-//    self.tabBarController.tabBarWidth = 180.0;
-    
-    // custom selected view
-//    UIView *selectedBackgroundView = self.tabBarController.tabBar.selectedBackgroundView;
-//    UIView *roundedView = [[UIView alloc] initWithFrame:selectedBackgroundView.bounds];
-//    roundedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    roundedView.frame = CGRectInset(roundedView.frame, 4, 4);
-//    roundedView.backgroundColor = selectedBackgroundView.backgroundColor;
-//    roundedView.layer.cornerRadius = 4.0;
-//    selectedBackgroundView.backgroundColor = [UIColor clearColor];
-//    [selectedBackgroundView addSubview:roundedView];
-    
-    // set title and image offsets
-//    [self.tabBarController.tabBar.tabBarButtons enumerateObjectsUsingBlock:^(MHVerticalTabBarButton *button, NSUInteger idx, BOOL *stop) {
-//        button.titleOffset = CGSizeMake(0, -20);
-//        button.imageOffset = CGSizeMake(0, 20);
-//    }];
-    
-    // apply default label attributes
-//    NSDictionary *attributes = @{ NSForegroundColorAttributeName : [UIColor redColor] };
-//    self.tabBarController.tabBar.labelAttributes = attributes;
-
-    
     self.window.rootViewController = self.tabBarController;
     
     [self.window makeKeyAndVisible];
