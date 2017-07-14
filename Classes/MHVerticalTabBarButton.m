@@ -43,10 +43,11 @@
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
-    
+    _titleLabel.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+
     _imageView = [[UIImageView alloc] init];
-    _imageView.contentMode = UIViewContentModeCenter;
-    
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+
     _titleOffset = CGSizeZero;
     _imageOffset = CGSizeZero;
 }
@@ -72,18 +73,23 @@
     [self setNeedsLayout];
 }
 
+- (void)setLabelFrame:(CGRect)labelFrame {
+    _titleLabel.frame = labelFrame;
+    [self setNeedsLayout];
+}
+
 - (void)layoutSubviews {
 
     if ([_titleLabel.attributedText length] > 0) {
         if (CGSizeEqualToSize(_titleOffset, CGSizeZero)) {
-            _titleLabel.frame = CGRectOffset(self.bounds, 0, _imageView.image.size.height * 0.6);
+            _titleLabel.frame = CGRectOffset(self.bounds, 0, _imageView.image.size.height * 1.15);
         }
         else {
             _titleLabel.frame = CGRectOffset(self.bounds, self.titleOffset.width, self.titleOffset.height);
         }
-        
+
         if (CGSizeEqualToSize(_imageOffset, CGSizeZero)) {
-            _imageView.frame = CGRectOffset(self.bounds, 0, _imageView.image.size.height * -0.2);
+            _imageView.frame = CGRectMake(_imageView.image.size.width / 2, _imageView.image.size.height / 2, 30, 30);
         }
         else {
             _imageView.frame = CGRectOffset(self.bounds, self.imageOffset.width, self.imageOffset.height);
@@ -93,8 +99,26 @@
         _imageView.frame = self.bounds;
     }
 
+    [self reSizeLabel:_titleLabel];
+
     [self addSubview:_imageView];
     [self addSubview:_titleLabel];
 }
+
+- (void)reSizeLabel:(UILabel *)label {
+    NSString *aLabelTextString = [label text];
+    UIFont *aLabelFont = [label font];
+    CGFloat aLabelSizeWidth = label.frame.size.width;
+
+    CGSize sizeCalculated = [aLabelTextString boundingRectWithSize:CGSizeMake(aLabelSizeWidth, MAXFLOAT)
+                                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                                        attributes:@{NSFontAttributeName : aLabelFont}
+                                                           context:nil].size;
+
+    CGRect newFrame = label.frame;
+    newFrame.size.height = sizeCalculated.height;
+    label.frame = newFrame;
+}
+
 
 @end
