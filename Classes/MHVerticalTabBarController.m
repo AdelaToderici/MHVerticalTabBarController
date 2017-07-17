@@ -67,25 +67,25 @@
 }
 
 - (void)setViewControllers:(NSArray *)viewControllers {
-    
+
     // remove old child view controllers
     [self.childViewControllers enumerateObjectsUsingBlock:^(UIViewController *viewController, NSUInteger idx, BOOL *stop) {
         [viewController willMoveToParentViewController:nil];
-		[viewController removeFromParentViewController];
+        [viewController removeFromParentViewController];
     }];
-    
+
     // add new view controllers as children
     [viewControllers enumerateObjectsUsingBlock:^(UIViewController *viewController, NSUInteger idx, BOOL *stop) {
         [self addChildViewController:viewController];
         [viewController didMoveToParentViewController:self];
     }];
-    
+
     // grab the tab bar items from the view controllers
     self.tabBar.items = [viewControllers valueForKey:@"tabBarItem"];
-    
+
     // set the selected index and selected view controller to index 0
     self.tabBar.selectedIndex = 0;
-    
+
     [self tabBar:self.tabBar didSelectItem:self.tabBar.items[0]];
 }
 
@@ -105,22 +105,22 @@
     if (![self.childViewControllers containsObject:selectedViewController]) return;
 
     _selectedViewController = selectedViewController;
-    
+
     NSUInteger index = [self.childViewControllers indexOfObject:selectedViewController];
     self.tabBar.selectedIndex = index;
-    
+
     [self swapViewController:_selectedViewController];
 }
 
 - (void)setTabBarWidth:(CGFloat)tabBarWidth {
     _tabBarWidth = tabBarWidth;
-    
+
     _tabBar.frame =
     CGRectMake(CGRectGetHeight(self.view.bounds) - _tabBarWidth,
                0,
                _tabBarWidth,
                CGRectGetHeight(self.view.bounds));
-    
+
     self.selectedViewController.view.frame =
     CGRectMake(0,
                0,
@@ -132,11 +132,10 @@
 #pragma mark - MHVerticalTabBarDelegate
 
 - (void)tabBar:(MHVerticalTabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    
+
     NSUInteger index = [self.tabBar.items indexOfObject:item];
-    
-	UIViewController *viewController = self.childViewControllers[index];
-    
+    UIViewController *viewController = self.childViewControllers[index];
+
     if (self.selectedViewController == viewController) {
         if ([self.selectedViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)self.selectedViewController;
@@ -145,7 +144,7 @@
     }
     else {
         [self swapViewController:viewController];
-        
+
         if ([self.delegate respondsToSelector:@selector(tabBarController:didSelectViewController:)]) {
             [self.delegate tabBarController:self didSelectViewController:_selectedViewController];
         }
@@ -161,13 +160,11 @@
                CGRectGetWidth(self.view.bounds) - self.tabBarWidth,
                CGRectGetHeight(self.view.bounds));
     viewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
+
     [_selectedViewController.view removeFromSuperview];
     [self.view addSubview:viewController.view];
-    
+
     _selectedViewController = viewController;
 }
-
-
 
 @end
