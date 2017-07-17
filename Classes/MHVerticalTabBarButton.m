@@ -8,11 +8,15 @@
 
 #import "MHVerticalTabBarButton.h"
 
+static const NSInteger kImageViewSize = 30;
+
 @implementation MHVerticalTabBarButton
 
 - (id)initWithTabBarItem:(UITabBarItem *)tabBarItem {
     if (tabBarItem.image) {
-        self = [self initWithTitle:tabBarItem.title image:tabBarItem.image selectedImage:nil];
+        self = [self initWithTitle:tabBarItem.title
+                             image:[tabBarItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                     selectedImage:[tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     }
     else {
         self = [self initWithTitle:tabBarItem.title image:tabBarItem.finishedUnselectedImage selectedImage:tabBarItem.finishedSelectedImage];
@@ -81,18 +85,19 @@
 - (void)layoutSubviews {
 
     if ([_titleLabel.attributedText length] > 0) {
-        if (CGSizeEqualToSize(_titleOffset, CGSizeZero)) {
-            _titleLabel.frame = CGRectOffset(self.bounds, 0, _imageView.image.size.height * 1.15);
-        }
-        else {
-            _titleLabel.frame = CGRectOffset(self.bounds, self.titleOffset.width, self.titleOffset.height);
-        }
 
         if (CGSizeEqualToSize(_imageOffset, CGSizeZero)) {
-            _imageView.frame = CGRectMake(_imageView.image.size.width / 2, _imageView.image.size.height / 2, 30, 30);
+            _imageView.frame = CGRectMake((self.bounds.size.width/2 - (kImageViewSize/2)), 15, kImageViewSize, kImageViewSize);
         }
         else {
             _imageView.frame = CGRectOffset(self.bounds, self.imageOffset.width, self.imageOffset.height);
+        }
+
+        if (CGSizeEqualToSize(_titleOffset, CGSizeZero)) {
+            _titleLabel.frame = CGRectOffset(self.bounds, 0, _imageView.image.size.height * 4);
+        }
+        else {
+            _titleLabel.frame = CGRectOffset(self.bounds, self.titleOffset.width, self.titleOffset.height);
         }
     }
     else {

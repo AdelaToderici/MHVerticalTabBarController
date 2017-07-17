@@ -21,23 +21,27 @@
     UIViewController *vc1 = [[UIViewController alloc] init];
     vc1.view.backgroundColor = [UIColor redColor];
     vc1.tabBarItem.image = [UIImage imageNamed:@"tb-01"];
-    
+    vc1.tabBarItem.selectedImage = [UIImage imageNamed:@"tb-01"];
+
     UIViewController *vc2 = [[UIViewController alloc] init];
     vc2.view.backgroundColor = [UIColor yellowColor];
     vc2.tabBarItem.title = @"Starred";
     vc2.tabBarItem.image = [UIImage imageNamed:@"tb-02"];
+    vc2.tabBarItem.selectedImage = [UIImage imageNamed:@"tb-02"];
     
     UIViewController *vc3 = [[UIViewController alloc] init];
     vc3.view.backgroundColor = [UIColor purpleColor];
     vc3.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Favorites"
                                                    image:[UIImage imageNamed:@"tb-03"]
                                                      tag:0];
-    
+    vc3.tabBarItem.selectedImage = [UIImage imageNamed:@"tb-03"];
+
     UIViewController *vc4 = [[UIViewController alloc] init];
     vc4.view.backgroundColor = [UIColor blueColor];
     vc4.title = @"Settings";
     vc4.tabBarItem.image = [UIImage imageNamed:@"tb-04"];
-    
+    vc4.tabBarItem.selectedImage = [UIImage imageNamed:@"tb-04"];
+
     self.tabBarController = [[MHVerticalTabBarController alloc] init];
     self.tabBarController.viewControllers = @[vc1, vc2, vc3, vc4];
     
