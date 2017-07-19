@@ -50,7 +50,7 @@ static const NSInteger kImageViewSize = 30;
     _titleLabel.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
 
     _imageView = [[UIImageView alloc] init];
-    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView.contentMode = UIViewContentModeCenter;
 
     _titleOffset = CGSizeZero;
     _imageOffset = CGSizeZero;
@@ -94,7 +94,7 @@ static const NSInteger kImageViewSize = 30;
         }
 
         if (CGSizeEqualToSize(_titleOffset, CGSizeZero)) {
-            _titleLabel.frame = CGRectOffset(self.bounds, 0, _imageView.image.size.height * 4);
+            _titleLabel.frame = CGRectOffset(self.bounds, 0, self.imageView.bounds.size.height + 20);
         }
         else {
             _titleLabel.frame = CGRectOffset(self.bounds, self.titleOffset.width, self.titleOffset.height);

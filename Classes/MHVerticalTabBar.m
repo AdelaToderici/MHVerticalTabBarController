@@ -33,12 +33,6 @@
 
     self.backgroundColor = [UIColor colorWithRed:31/255.0 green:31/255.0 blue:31/255.0 alpha:1.0];
 
-    CGRect rect =
-    CGRectMake(0,
-               0,
-               80.0,
-               80.0);
-
     _labelAttributes = @{
                          NSForegroundColorAttributeName : [UIColor colorWithRed:78/255.0 green:80/255.0 blue:87/255.0 alpha:1.0],
                          NSFontAttributeName : [UIFont boldSystemFontOfSize:14.5]
@@ -49,15 +43,10 @@
     [super layoutSubviews];
 
     CGFloat width = CGRectGetWidth(self.bounds);
-
-    _selectedBackgroundView.frame =
-    CGRectMake(0,
-               width * self.selectedIndex,
-               width,
-               width);
+    CGFloat height = CGRectGetHeight(self.bounds);
 
     [self.tabBarButtons enumerateObjectsUsingBlock:^(MHVerticalTabBarButton *button, NSUInteger idx, BOOL *stop) {
-        button.frame = CGRectMake(0, width * idx, width, width);
+        button.frame = CGRectMake(0, (height/self.tabBarButtons.count) * idx, width, (height/self.tabBarButtons.count));
     }];
 }
 
